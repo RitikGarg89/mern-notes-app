@@ -1,19 +1,42 @@
 import React from 'react'
 
-function NoteCard() {
+function NoteCard({ id, title, description, createdAt }) {
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const today = new Date();
+
+        const yesterday = new Date();
+        yesterday.setDate(today.getDate() - 1);
+
+        // Remove time and compare calendar dates
+        const format = (d) =>
+            `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+
+        if (format(date) === format(today)) {
+            return "Today";
+        }
+
+        if (format(date) === format(yesterday)) {
+            return "Yesterday";
+        }
+
+        return new Intl.DateTimeFormat("en-IN", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+        }).format(date);
+    }
+
+
     return (
-        <div className='bg-surface gap-space-sm mb-space-md rounded-lg shadow-card p-5'>
+        <div className='bg-surface gap-space-sm mb-space-md rounded-lg shadow-card p-5 flex flex-col justify-between'>
             <div className='flex flex-col gap-space-sm mb-space-md'>
-                <p className='font-headline text-headline-sm'>Weekly Grocery Run</p>
-                <p className='text-text-muted text-body-md  line-clamp-3'>Almond milk, sourdough loaf, organic eggs,
-                    fresh spinach, cherry tomatoes, and ground
-                    coffee beans for morning pour-overs.
-                    Almond milk, sourdough loaf, organic eggs,
-                    fresh spinach, cherry tomatoes, and ground
-                    coffee beans for morning pour-overs.</p>
+                <p className='font-headline text-headline-sm'>{title}</p>
+                <p className='text-text-muted text-body-md  line-clamp-3'>{description}</p>
             </div>
             <div className='py-space-md px-space-sm  bg-surface-low rounded-button flex justify-between items-center' >
-                <span className='text-text-muted text-body-md'>Today</span>
+                <span className='text-text-muted text-body-md'>{formatDate(createdAt)}</span>
                 <div className=' flex gap-1'>
                     <div className='h-full w-5 flex items-center justify-center'>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
