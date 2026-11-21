@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addNote } from '../features/notes/notesSlice';
+import { addNote, updateNote } from '../features/notes/notesSlice';
 
-function AddNote() {
+function AddNote({ selectedId }) {
 
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+
+    const { notes } = useSelector(state => state.notes);
+
+    const selectedNote = notes.find(note => note._id === selectedId);
+
+    useEffect(() => {
+        if (selectedNote) {
+            setTitle(selectedNote.title);
+            setDescription(selectedNote.description);
+        } else {
+            setTitle("");
+            setDescription("");
+        }
+    }, [selectedNote]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,7 +34,11 @@ function AddNote() {
         }
         setTitle('')
         setDescription('')
-        dispatch(addNote(note))
+        if (selectedNote) {
+            dispatch(updateNote(selectedIdid, note))
+        } else {
+            dispatch(addNote(note))
+        }
     }
 
     return (
@@ -47,7 +65,7 @@ function AddNote() {
                         type="submit"
                         className='bg-primary text-white px-5 py-2.5 rounded-button'
                     >
-                        + Add Note
+                        {selectedId ? "Update Note" : "+ Add Note"}
                     </button>
                 </div>
             </form>

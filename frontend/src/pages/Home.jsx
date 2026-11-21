@@ -4,6 +4,7 @@ import AddNote from '../components/AddNote'
 import NoteCard from '../components/NoteCard'
 import { deleteAllNotes, fetchNotes } from '../features/notes/notesSlice.js';
 import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 function Home() {
     const dispatch = useDispatch();
@@ -53,6 +54,8 @@ function Home() {
         },
     ];
 
+    const [selectedId, setSelectId] = useState(null)
+
     const { notes, isLoading, error } = useSelector(state => state.notes)
     useEffect(() => {
         dispatch(fetchNotes())
@@ -66,7 +69,7 @@ function Home() {
                 <Header />
             </header>
             <main className='!flex flex-col gap-gutter-mobile md:gap-gutter'>
-                <AddNote />
+                <AddNote selectedId={selectedId} />
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-space-md '>
                         <h2 className='text-headline-sm font-headline'>Your Notes</h2>
@@ -80,7 +83,7 @@ function Home() {
                     </button>
                 </div>
                 <div className='grid-cols-1 gap-space-md md:grid-cols-2 lg:grid-cols-3 grid '>
-                    {notes.map(note => <NoteCard key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} />)}
+                    {notes.map(note => <NoteCard key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} setSelectId={setSelectId} />)}
                 </div>
             </main >
         </div >
