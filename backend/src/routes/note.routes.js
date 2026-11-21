@@ -7,8 +7,15 @@ import {
     deleteNoteById
 } from "../controllers/notes.controller.js";
 
+const router = express.Router();
 
-const router = express.Router()
+router.route("/")
+    .get(getAllNotes)
+    .post(createNote)
+    .delete(deleteAllNote);
 
-router("/").get(getAllNotes).post(createNote).delete(deleteAllNote);
-router("/:id").patch(updateNote).delete(deleteNoteById)
+router.route("/:id")
+    .patch(updateNote)
+    .delete(deleteNoteById);
+
+export default router;
