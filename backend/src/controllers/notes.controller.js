@@ -27,7 +27,7 @@ const createNote = asyncHandler(async (req, res) => {
 
 const updateNote = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    const [title, description] = req.body;
+    const { title, description } = req.body;
     if (!id) {
         throw new ApiError(400, "Note ID is required");
     }

@@ -28,4 +28,10 @@ app.use(express.urlencoded({
     extended: true
 }))
 
+
+// Notes Routing
+import notesRouter from './routes/note.routes.js';
+
+app.use('/api/v1/notes', notesRouter)
+
 export { app }
