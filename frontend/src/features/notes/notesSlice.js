@@ -26,7 +26,7 @@ export const addNote = createAsyncThunk(
     async (noteData, { rejectWithValue }) => {
         try {
             const response = await createNoteAPI(noteData);
-            return response.data.data;
+            return response.data;
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to add note"
@@ -40,7 +40,7 @@ export const updateNote = createAsyncThunk(
     async ({ id, noteData }, { rejectWithValue }) => {
         try {
             const response = await updateNoteAPI(id, noteData);
-            return response.data.data;
+            return response.data;
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to update note"
@@ -54,7 +54,7 @@ export const deleteByIdNote = createAsyncThunk(
     async ({ id }, { rejectWithValue }) => {
         try {
             const response = await deleteNoteAPI(id);
-            return response.data.data;
+            return response.data;
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to Delete Note"
@@ -68,7 +68,7 @@ export const deleteAllNotes = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await deleteAllNotesAPI();
-            return response.data.data;
+            return response.data;
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to Delete All Note"

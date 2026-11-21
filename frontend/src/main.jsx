@@ -6,7 +6,7 @@ import './normalize.css'
 
 // Redux
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { store } from "./utils/noteStorage.js";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

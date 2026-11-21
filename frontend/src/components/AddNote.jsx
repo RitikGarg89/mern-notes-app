@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addNote } from '../features/notes/notesSlice';
 
 function AddNote() {
+
+    const dispatch = useDispatch();
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -16,7 +20,7 @@ function AddNote() {
         }
         setTitle('')
         setDescription('')
-        console.log(note)
+        dispatch(addNote(note))
     }
 
     return (

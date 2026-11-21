@@ -1,9 +1,12 @@
-import React from 'react'
+import { useEffect } from 'react'
 import Header from '../components/Header'
 import AddNote from '../components/AddNote'
 import NoteCard from '../components/NoteCard'
+import { fetchNotes } from '../features/notes/notesSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Home() {
+    const dispatch = useDispatch();
 
     const sampleNotes = [
         {
@@ -50,6 +53,13 @@ function Home() {
         },
     ];
 
+    const { notes, isLoading, error } = useSelector(state => state.notes)
+    useEffect(() => {
+        dispatch(fetchNotes())
+    }, [])
+    console.log("Redux Notes:", notes);
+    const total = notes.length
+
     return (
         <div className='flex flex-col gap-gutter-mobile md:gap-gutter '>
             <header>
@@ -59,10 +69,10 @@ function Home() {
                 <AddNote />
                 <div className='flex items-center gap-space-md '>
                     <h2 className='text-headline-sm font-headline'>Your Notes</h2>
-                    <span className='text-body-sm font-sans bg-border text-text-muted py-0.5 rounded-full px-2'>{sampleNotes.length} notes</span>
+                    <span className='text-body-sm font-sans bg-border text-text-muted py-0.5 rounded-full px-2'>{notes.length} notes</span>
                 </div>
                 <div className='grid-cols-1 gap-space-md md:grid-cols-2 lg:grid-cols-3 grid '>
-                    {sampleNotes.map(note => <NoteCard key={note.id} title={note.title} description={note.description} createdAt={note.createdAt} />)}
+                    {notes.map(note => <NoteCard key={note._id} title={note.title} description={note.description} createdAt={note.createdAt} />)}
                 </div>
             </main >
         </div >
