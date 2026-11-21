@@ -51,7 +51,7 @@ export const updateNote = createAsyncThunk(
 
 export const deleteByIdNote = createAsyncThunk(
     "notes/deleteNote",
-    async ({ id }, { rejectWithValue }) => {
+    async (id, { rejectWithValue }) => {
         try {
             const response = await deleteNoteAPI(id);
             return response.data;
