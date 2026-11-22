@@ -28,9 +28,9 @@ function ConfirmBox({ title, message, onConfirm, onCancel }) {
                     <button
                         type="button"
                         onClick={onConfirm}
-                        className="rounded-button bg-red-500 px-4 py-2 text-white"
+                        className={`rounded-button ${title.includes('Delete') ? 'bg-red-500' : 'bg-blue-500'} px-4 py-2 text-white`}
                     >
-                        Delete
+                        {title.includes('Delete') ? 'Delete' : 'Update'}
                     </button>
                 </div>
 

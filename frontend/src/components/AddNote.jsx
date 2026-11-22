@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addNote, updateNote } from '../features/notes/notesSlice';
 
-function AddNote({ selectedId }) {
+function AddNote({ selectedId, setShowConfirm, setConfirmData }) {
 
     const dispatch = useDispatch();
 
@@ -34,15 +34,21 @@ function AddNote({ selectedId }) {
         }
 
         if (selectedNote) {
-            dispatch(updateNote({
-                id: selectedId,
-                noteData: note
-            }))
-                .unwrap()
-                .then(() => {
-                    setTitle('');
-                    setDescription('');
-                });
+            setConfirmData({
+                title: "Update Note?",
+                message: "Are you sure you want to update your notes?",
+                onConfirm: () => {
+                    dispatch(updateNote({
+                        id: selectedId,
+                        noteData: note
+                    }));
+                    setShowConfirm(false);
+                },
+                onCancel: () => setShowConfirm(false)
+            });
+
+            setShowConfirm(true);
+
         } else {
             dispatch(addNote(note))
                 .unwrap()

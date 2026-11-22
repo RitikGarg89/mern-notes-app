@@ -42,7 +42,7 @@ function Home() {
                 <Header />
             </header>
             <main className='!flex flex-col gap-gutter-mobile md:gap-gutter'>
-                <AddNote selectedId={selectedId} />
+                <AddNote selectedId={selectedId} setConfirmData={setConfirmData} setShowConfirm={setShowConfirm} />
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-space-md '>
                         <h2 className='text-headline-sm font-headline'>Your Notes</h2>
