@@ -32,12 +32,24 @@ function AddNote({ selectedId }) {
             title,
             description
         }
-        setTitle('')
-        setDescription('')
+
         if (selectedNote) {
-            dispatch(updateNote(selectedIdid, note))
+            dispatch(updateNote({
+                id: selectedId,
+                noteData: note
+            }))
+                .unwrap()
+                .then(() => {
+                    setTitle('');
+                    setDescription('');
+                });
         } else {
             dispatch(addNote(note))
+                .unwrap()
+                .then(() => {
+                    setTitle('');
+                    setDescription('');
+                });
         }
     }
 
